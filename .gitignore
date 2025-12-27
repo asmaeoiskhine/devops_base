@@ -1,0 +1,9 @@
+# Bloquer TOUS les dossiers .terraform peu importe où ils se trouvent
+**/.terraform/
+**/*.tfstate
+**/*.tfstate.backup
+**/.terraform.lock.hcl
+
+# Bloquer les fichiers compressés lourds et les clés
+*.zip
+*.key

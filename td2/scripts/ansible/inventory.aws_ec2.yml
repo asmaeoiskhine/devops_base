@@ -1,0 +1,8 @@
+plugin: amazon.aws.aws_ec2
+regions:
+  - us-east-1
+filters:
+  "tag:Ansible": "ch2_instances"   # sélectionne seulement les instances avec ce tag
+keyed_groups:
+  - key: tags.Ansible
+    prefix: ""                     # crée un groupe nommé exactement comme la valeur du tag
