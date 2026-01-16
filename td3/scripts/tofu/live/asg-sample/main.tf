@@ -13,6 +13,12 @@ max_size = 10
 desired_capacity = 3 
 key_name = "ansible-ch3"
 target_group_arns = [module.alb.target_group_arn]
+instance_refresh = { 
+min_healthy_percentage = 100 
+max_batch_size = 1         
+strategy = "Rolling"              
+auto_rollback = true         
+} 
 }
 
 module "alb" {
