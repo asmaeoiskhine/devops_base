@@ -1,0 +1,22 @@
+# Terraform / OpenTofu
+.terraform/
+*.tfstate
+*.tfstate.*
+terraform.lock.hcl
+
+# Packer
+packer_cache/
+
+# Ansible
+*.retry
+
+# AWS / credentials
+.env
+*.pem
+*.key
+
+# Node
+node_modules/
+
+# OS
+.DS_Store
