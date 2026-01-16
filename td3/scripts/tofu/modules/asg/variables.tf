@@ -32,6 +32,10 @@ variable "app_http_port" {
   type        = number
 }
 
+variable "key_name" {
+  type		= string
+  description	="The name of the AWS key pair to enable SSH access"
+}
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
 # ---------------------------------------------------------------------------------------------------------------------

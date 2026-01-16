@@ -4,6 +4,7 @@ resource "aws_launch_template" "sample_app" {
   instance_type          = var.instance_type
   vpc_security_group_ids = [aws_security_group.sample_app.id]
   user_data              = var.user_data
+  key_name		 = var.key_name
 }
 
 resource "aws_security_group" "sample_app" {
