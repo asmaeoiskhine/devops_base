@@ -11,12 +11,14 @@ instance_type = "t3.micro"
 min_size = 1
 max_size = 10     
 desired_capacity = 3 
-key_name = "ma-cle-ssh"
+key_name = "ansible-ch3"
+target_group_arns = [module.alb.target_group_arn]
 }
 
 module "alb" {
 source = "github.com/asmaeoiskhine/devops_base//td3/scripts/tofu/modules/alb"
 name = "sample-app-alb"
+alb_http_port = 80
 app_http_port = 8080
 app_health_check_path = "/health"
 
