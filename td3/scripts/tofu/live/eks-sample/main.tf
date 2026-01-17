@@ -3,7 +3,7 @@ provider "aws" {
 }
 
 module "cluster" {
-  source = "github.com/asmaeoiskhine/devops_base//ch3/tofu/modules/eks-cluster"
+  source = "github.com/asmaeoiskhine/devops_base//td3/scripts/tofu/modules/eks-cluster"
 
   name        = "eks-sample"        
   eks_version = "1.29"              
