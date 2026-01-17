@@ -4,22 +4,26 @@ resource "aws_eks_cluster" "cluster" {
   version  = var.eks_version
 
   vpc_config {
-    subnet_ids = data.aws_subnets.default.ids
+    subnet_ids = var.subnet_ids
   }
 
-  # Ensure that IAM Role permissions are created before and deleted after
-  # the EKS Cluster. Otherwise, EKS will not be able to properly delete
-  # EKS managed EC2 infrastructure such as Security Groups.
   depends_on = [
     aws_iam_role_policy_attachment.AmazonEKSClusterPolicy
   ]
 }
 
+
 resource "aws_eks_node_group" "nodes" {
   cluster_name    = aws_eks_cluster.cluster.name
   node_group_name = var.name
   node_role_arn   = aws_iam_role.node_group.arn
-  subnet_ids      = data.aws_subnets.default.ids
+  subnet_ids      = [
+    "subnet-095df3273e3390338",
+    "subnet-0c6d015c1616d1574",
+    "subnet-0c44414ec7726f39a",
+    "subnet-015fd9bebc774ea59",
+    "subnet-063a73e59b7281482"
+  ]
   instance_types  = [var.instance_type]
 
   scaling_config {
@@ -28,15 +32,13 @@ resource "aws_eks_node_group" "nodes" {
     desired_size = var.desired_worker_nodes
   }
 
-  # Ensure that IAM Role permissions are created before and deleted after
-  # the EKS Node Group. Otherwise, EKS will not be able to properly
-  # delete EC2 Instances and Elastic Network Interfaces.
   depends_on = [
     aws_iam_role_policy_attachment.AmazonEKSWorkerNodePolicy,
     aws_iam_role_policy_attachment.AmazonEC2ContainerRegistryReadOnly,
     aws_iam_role_policy_attachment.AmazonEKS_CNI_Policy,
   ]
 }
+
 
 resource "aws_iam_role" "cluster" {
   name               = "${var.name}-control-plane"
