@@ -1,19 +1,25 @@
-// app.test.js 
-const request = require('supertest'); 
-const app = require('./app'); 
-describe('Test the root path', () => { 
-test('It should respond to the GET method', async () => { 
-const response = await request(app).get('/'); 
-expect(response.statusCode).toBe(200); 
-expect(response.text).toBe('Hello, World!'); 
-}); 
-}); 
+const request = require('supertest');
+const app = require('./app');
 
-describe('Test the /name/:name path', () => { 
-test('It should respond with a personalized greeting', async () => { 
-const name = 'Alice'; 
-const response = await request(app).get(`/name/${name}`); 
-expect(response.statusCode).toBe(200); 
-expect(response.text).toBe(`Hello, ${name}!`); 
-}); 
+describe('Test the app', () => {
+  test('Get / should return Hello, World!', async () => {
+    const response = await request(app).get('/');
+    expect(response.statusCode).toBe(200);
+    expect(response.text).toBe('Hello, World!');
+  });
+
+  test('Get /name/Bob should return Hello, Bob!', async () => {
+    const response = await request(app).get('/name/Bob');
+    expect(response.statusCode).toBe(200);
+    expect(response.text).toBe('Hello, Bob!');
+  });
+
+  const maliciousUrl = '/name/%3Cscript%3Ealert("hi")%3C%2Fscript%3E';
+  const sanitizedHtml = 'Hello, &lt;script&gt;alert(&#34;hi&#34;)&lt;/script&gt;!'
+
+  test('Get /name should sanitize its input', async () => {
+    const response = await request(app).get(maliciousUrl);
+    expect(response.statusCode).toBe(200);
+    expect(response.text).toBe(sanitizedHtml);
+  });
 });
