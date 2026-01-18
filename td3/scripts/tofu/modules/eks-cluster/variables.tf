@@ -22,11 +22,6 @@ variable "max_worker_nodes" {
   type        = number
 }
 
-variable "desired_worker_nodes" {
-  description = "The desired number of worker nodes"
-  type        = number
-}
-
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
 # ---------------------------------------------------------------------------------------------------------------------
@@ -34,11 +29,10 @@ variable "desired_worker_nodes" {
 variable "instance_type" {
   description = "The type of EC2 instances to deploy as worker nodes (e.g., t2.micro)"
   type        = string
-  default     = "t2.micro"
+  default     = "t3.micro"
 }
 
 variable "enable_eks_pod_identity_agent" {
   description = "Set to true to install the EKS pod identity agent add-on, which can be used to give Pods IAM permissions."
   type        = bool
   default     = false
-}

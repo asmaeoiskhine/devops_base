@@ -1,11 +1,9 @@
-FROM node:21.7
+FROM node:current-alpine
 
-WORKDIR /home/node/app
+WORKDIR /usr/sr /app
 
 COPY app.js .
 
 EXPOSE 8080
-
-USER node
 
 CMD ["node", "app.js"]

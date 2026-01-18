@@ -4,7 +4,7 @@ region = "us-east-1"
 module "asg" { 
 source = "github.com/asmaeoiskhine/devops_base//td3/scripts/tofu/modules/asg" 
 name = "sample-app-asg"           
-ami_id = "ami-0ea4e0bac1b7f3d9d"        
+ami_id = "ami-0a5fb735662a8c8cd"        
 user_data = filebase64("${path.module}/user-data.sh")    
 app_http_port  = 8080 
 instance_type = "t3.micro"
@@ -15,6 +15,7 @@ key_name = "ansible-ch3"
 target_group_arns = [module.alb.target_group_arn]
 instance_refresh = { 
 min_healthy_percentage = 100 
+max_healthy_percentage = 200
 max_batch_size = 1         
 strategy = "Rolling"              
 auto_rollback = true         

@@ -1,15 +1,15 @@
 provider "aws" {
-  region = "us-east-1"
+  region = "us-east-2"
 }
 
 module "cluster" {
-  source = "github.com/asmaeoiskhine/devops_base//td3/scripts/tofu/modules/eks-cluster"
+  source  = "brikis98/devops/book//modules/eks-cluster"
+  version = "1.0.0"
 
   name        = "eks-sample"        
-  eks_version = "1.29"              
+  eks_version = "1.32"              
 
   instance_type        = "t3.micro" 
-  min_worker_nodes     = 1          
+  min_worker_nodes     = 3          
   max_worker_nodes     = 10         
-  desired_worker_nodes = 3          
 }
