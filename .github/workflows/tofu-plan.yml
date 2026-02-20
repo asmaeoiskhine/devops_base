@@ -21,7 +21,7 @@ jobs:
       # 2. Configure AWS credentials via OIDC
       - uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: role-to-assume: arn:aws:iam::270758478612:role/lambda-sample-plan  # <-- mettre ton ARN IAM ici
+          role-to-assume: ${{ secrets.PLAN_ROLE_ARN }}
           role-session-name: plan-${{ github.run_number }}-${{ github.actor }}
           aws-region: us-east-2
 
@@ -44,7 +44,7 @@ jobs:
         with:
           issue-number: ${{ github.event.pull_request.number }}
           body: |
-            ## ${{ env.RESULT_EMOJI }} `tofu plan` output
+
             ```
             ${{ steps.plan.outputs.stdout }}
             ```
